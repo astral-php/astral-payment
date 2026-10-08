@@ -59,18 +59,4 @@ final class OrderDao extends AbstractDao
         );
     }
 
-    /** @param array<string, mixed> $fields */
-    public function update(int $id, array $fields): bool
-    {
-        if ($fields === []) {
-            return false;
-        }
-
-        $set = implode(', ', array_map(static fn (string $k): string => "$k = :$k", array_keys($fields)));
-        $params = array_merge($fields, ['id' => $id]);
-
-        $stmt = $this->pdo->prepare("UPDATE orders SET $set WHERE id = :id");
-
-        return $stmt->execute($params);
-    }
 }

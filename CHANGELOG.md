@@ -1,5 +1,11 @@
 # Changelog — astral-php/astral-payment
 
+## [0.1.1] — 2026-10-08
+
+### Correctif
+
+- `OrderDao` : suppression du `update(): bool` incompatible avec `AbstractDao::update(): int` (fatal PHP au chargement).
+
 ## [0.1.0] — 2026-10-04
 
 ### Packaging (hub 1.2.5)
