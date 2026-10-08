@@ -1,5 +1,11 @@
 # Changelog — astral-php/astral-payment
 
+## [0.1.2] — 2026-10-08
+
+### Correctif
+
+- `WebhookController` : utiliser `JsonResponse::make()` (le constructeur attend une string JSON, pas un array) — évitait un HTTP 500 après un traitement webhook réussi.
+
 ## [0.1.1] — 2026-10-08
 
 ### Correctif

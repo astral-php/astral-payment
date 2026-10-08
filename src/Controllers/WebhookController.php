@@ -42,13 +42,13 @@ final class WebhookController
                 'message' => $e->getMessage(),
             ]);
 
-            return new JsonResponse(['error' => 'Invalid signature'], 400);
+            return JsonResponse::make(['error' => 'Invalid signature'], 400);
         } catch (\Exception $e) {
             $this->logger->error('Webhook Stripe : erreur de parsing', [
                 'message' => $e->getMessage(),
             ]);
 
-            return new JsonResponse(['error' => 'Bad request'], 400);
+            return JsonResponse::make(['error' => 'Bad request'], 400);
         }
 
         $this->logger->info('Webhook Stripe reçu', ['type' => $event->type]);
@@ -60,7 +60,7 @@ final class WebhookController
             default => null,
         };
 
-        return new JsonResponse(['received' => true], 200);
+        return JsonResponse::make(['received' => true], 200);
     }
 
     private function onPaymentSucceeded(object $intent): void
