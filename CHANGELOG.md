@@ -1,5 +1,12 @@
 # Changelog — astral-php/astral-payment
 
+## [0.1.3] — 2026-10-15
+
+### Ajout
+
+- Event `PaymentRefunded` (`charge.refunded`).
+- `WebhookController::onChargeRefunded` : met `orders.status = refunded`, journalise le paiement, dispatch `PaymentRefunded` (idempotent si déjà remboursé côté admin).
+
 ## [0.1.2] — 2026-10-08
 
 ### Correctif

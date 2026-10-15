@@ -7,6 +7,7 @@ namespace AstralPayment\Controllers;
 use AstralPayment\Dao\OrderDao;
 use AstralPayment\Dao\PaymentDao;
 use AstralPayment\Events\PaymentFailed;
+use AstralPayment\Events\PaymentRefunded;
 use AstralPayment\Events\PaymentSucceeded;
 use AstralPayment\PaymentService;
 use Core\Events\EventDispatcher;
@@ -105,6 +106,44 @@ final class WebhookController
 
     private function onChargeRefunded(object $charge): void
     {
-        $this->logger->info('Charge remboursée', ['charge_id' => $charge->id]);
+        $this->logger->info('Charge remboursée', ['charge_id' => $charge->id ?? null]);
+
+        $intentId = '';
+        $pi = $charge->payment_intent ?? null;
+        if (is_string($pi)) {
+            $intentId = $pi;
+        } elseif (is_object($pi) && isset($pi->id)) {
+            $intentId = (string) $pi->id;
+        }
+
+        $orderId = 0;
+        $transitioned = false;
+
+        if ($intentId !== '') {
+            $order = $this->orderDao->findByIntentId($intentId);
+            if ($order !== null) {
+                $orderId = (int) $order->id;
+                $alreadyRefunded = (($order->status ?? '') === 'refunded');
+
+                if (!$alreadyRefunded) {
+                    $this->orderDao->update($orderId, ['status' => 'refunded']);
+                    $transitioned = true;
+                }
+
+                $this->paymentDao->insert([
+                    'order_id'         => $orderId,
+                    'stripe_intent_id' => $intentId,
+                    'amount_cents'     => (int) ($charge->amount_refunded ?? $charge->amount ?? 0),
+                    'currency'         => (string) ($charge->currency ?? 'eur'),
+                    'status'           => 'refunded',
+                    'created_at'       => date('Y-m-d H:i:s'),
+                ]);
+            }
+        }
+
+        // Idempotent : pas de second event si l’admin a déjà marqué refunded via l’API.
+        if ($transitioned && $orderId > 0) {
+            $this->dispatcher->dispatch(new PaymentRefunded($charge, $orderId));
+        }
     }
 }
