@@ -1,5 +1,11 @@
 # Changelog — astral-php/astral-payment
 
+## [0.2.0] — 2026-10-31
+
+### Modifié
+
+- PHP ^8.3 + astral-core ^2.1 (feuille 2.1 P7)
+
 ## [0.1.4] — 2026-10-31
 
 ### Modifié

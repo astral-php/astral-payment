@@ -2,7 +2,7 @@
 
 Intégration Stripe pour [Astral](https://github.com/astral-php) — PaymentIntent, webhooks, events, remboursements.
 
-[![PHP](https://img.shields.io/badge/PHP-8.1%2B-777BB4?logo=php&logoColor=white)](https://www.php.net)
+[![PHP](https://img.shields.io/badge/PHP-8.3%2B-777BB4?logo=php&logoColor=white)](https://www.php.net)
 [![Stripe](https://img.shields.io/badge/Stripe-SDK-635BFF?logo=stripe&logoColor=white)](https://stripe.com)
 [![Tests](https://img.shields.io/badge/tests-PHPUnit%2010%2B-9933CC)](./phpunit.xml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)

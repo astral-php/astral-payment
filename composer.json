@@ -2,7 +2,7 @@
     "name": "astral-php/astral-payment",
     "description": "Intégration Stripe pour Astral — PaymentIntent, webhooks, events, remboursements",
     "type": "library",
-    "version": "0.1.4",
+    "version": "0.2.0",
     "license": "MIT",
     "keywords": [
         "astral",
@@ -23,8 +23,8 @@
         "issues": "https://github.com/astral-php/astral-payment/issues"
     },
     "require": {
-        "php": "^8.1",
-        "astral-php/astral-core": "^1.2 || ^2.1",
+        "php": "^8.3",
+        "astral-php/astral-core": "^2.1",
         "stripe/stripe-php": "^13.0 || ^14.0 || ^15.0 || ^16.0"
     },
     "require-dev": {
