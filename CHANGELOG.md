@@ -1,5 +1,11 @@
 # Changelog — astral-php/astral-payment
 
+## [0.1.4] — 2026-10-31
+
+### Modifié
+
+- `astral-php/astral-core` : **`^1.2 || ^2.1`** (débloque astral-shop 2.x / feuille 2.1 P5)
+
 ## [0.1.3] — 2026-10-15
 
 ### Ajout
